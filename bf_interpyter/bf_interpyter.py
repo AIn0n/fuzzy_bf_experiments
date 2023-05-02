@@ -10,6 +10,8 @@ def get_bfvm_memory(mem_type: int, size: int) -> np.array:
         32: np.int32,
         64: np.int64,
     }
+    if mem_type not in size_to_constr.keys():
+        mem_type = 8
     return np.array([0] * size, dtype=size_to_constr[mem_type])
 
 
