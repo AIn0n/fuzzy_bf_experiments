@@ -20,4 +20,5 @@ class BF_interpreter:
         self.memory = get_bfvm_memory(mem_type, size)
 
     def execute(self, commands: str)->BF_error:
-        return 0
+        self.memory[0] = 1
+        return BF_error()
