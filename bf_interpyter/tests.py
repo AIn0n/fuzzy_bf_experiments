@@ -22,12 +22,8 @@ def test_asking_for_N_bit_number_returns_number_which_roll_after_overflow(N):
     memory[0] += value_to_overflow
     assert memory[0] == -value_to_overflow
 
-def test_execute_plus_sign_returns_cell_value_plus_one():
-    interpreter = BF_interpreter()
-    interpreter.execute("+")
-    assert interpreter.memory[0] == 1
 
-@pytest.mark.parametrize("N", [2, 40, 80])
+@pytest.mark.parametrize("N", [1, 2, 40, 80])
 def test_execute_plus_N_times_sign_returns_N(N):
     interpreter = BF_interpreter()
     interpreter.execute("+" * N)

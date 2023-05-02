@@ -12,13 +12,15 @@ def get_bfvm_memory(mem_type: int, size: int) -> np.array:
     }
     return np.array([0] * size, dtype=size_to_constr[mem_type])
 
+
 class BF_error:
     pass
+
 
 class BF_interpreter:
     def __init__(self, mem_type: int = 64, size: int = 4000):
         self.memory = get_bfvm_memory(mem_type, size)
 
-    def execute(self, commands: str)->BF_error:
+    def execute(self, commands: str) -> BF_error:
         self.memory[0] = len(commands)
         return BF_error()
