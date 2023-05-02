@@ -74,3 +74,10 @@ def test_move_right_X_move_left_Y_plus_Z_returns_Z_in_X_minus_Y(X, Y, Z):
     interpreter.execute("<" * Y)
     interpreter.execute("+" * Z)
     assert interpreter.memory[X - Y] == Z
+
+@pytest.mark.parametrize("N", [3, 7, 12, 32])
+def test_loop_to_copy_to_next_cell(N):
+    interpreter = BF_interpreter()
+    interpreter.execute("+" * N)
+    interpreter.execute("[->+<]")
+    assert interpreter.memory[1] == N
