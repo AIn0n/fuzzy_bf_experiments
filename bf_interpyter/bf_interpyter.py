@@ -26,5 +26,11 @@ class BF_interpreter:
     def execute(self, commands: str) -> BF_error:
         default_command_set = ("+", "-", ">", "<", ".", ",", "[", "]")
         filtered_commands = tuple(filter(lambda x: x in default_command_set, commands))
-        self.memory[0] += len(filtered_commands)
+        print(filtered_commands)
+        for command in filtered_commands:
+            match command:
+                case "+":
+                    self.memory[0] += 1
+                case "-":
+                    self.memory[0] -= 1
         return BF_error()
