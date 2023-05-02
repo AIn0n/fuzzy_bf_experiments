@@ -9,9 +9,10 @@ authors = [
 ]
 dependencies = [
     "numpy>=1.24.3",
+    "pytest>=7.3.1",
 ]
 requires-python = ">=3.10"
 license = {text = "GPL-3.0+"}
 
 [tool.pdm.scripts]
-test = "python3 -m unittest tests.py"
+test = "python3 -m pytest tests.py"
