@@ -24,10 +24,7 @@ class BF_interpreter:
         self.memory = get_bfvm_memory(mem_type, size)
 
     def execute(self, commands: str) -> BF_error:
-        default_command_set = ("+", "-", ">", "<", ".", ",", "[", "]")
-        filtered_commands = tuple(filter(lambda x: x in default_command_set, commands))
-        print(filtered_commands)
-        for command in filtered_commands:
+        for command in commands:
             match command:
                 case "+":
                     self.memory[0] += 1
