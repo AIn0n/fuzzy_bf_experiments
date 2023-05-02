@@ -22,12 +22,15 @@ class BF_error:
 class BF_interpreter:
     def __init__(self, mem_type: int = 64, size: int = 4000):
         self.memory = get_bfvm_memory(mem_type, size)
+        self.pointer = 0
 
     def execute(self, commands: str) -> BF_error:
         for command in commands:
             match command:
                 case "+":
-                    self.memory[0] += 1
+                    self.memory[self.pointer] += 1
                 case "-":
-                    self.memory[0] -= 1
+                    self.memory[self.pointer] -= 1
+                case ">":
+                    self.pointer += 1
         return BF_error()
