@@ -26,3 +26,9 @@ def test_execute_plus_sign_returns_cell_value_plus_one():
     interpreter = BF_interpreter()
     interpreter.execute("+")
     assert interpreter.memory[0] == 1
+
+@pytest.mark.parametrize("N", [2, 40, 80])
+def test_execute_plus_N_times_sign_returns_N(N):
+    interpreter = BF_interpreter()
+    interpreter.execute("+" * N)
+    assert interpreter.memory[0] == N
