@@ -29,6 +29,7 @@ def test_execute_plus_N_times_sign_returns_N(N):
     interpreter.execute("+" * N)
     assert interpreter.memory[0] == N
 
+
 @pytest.mark.parametrize("X,Y", [(1, 2), (8, 30), (21, 28)])
 def test_execute_plus_times_X_plus_times_Y_returns_XY(X, Y):
     interpreter = BF_interpreter()
