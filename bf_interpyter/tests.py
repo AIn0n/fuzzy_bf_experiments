@@ -65,3 +65,12 @@ def test_move_right_X_plus_Y_returns_Y_in_X(X, Y):
     interpreter.execute(">" * X)
     interpreter.execute("+" * Y)
     assert interpreter.memory[X] == Y
+
+
+@pytest.mark.parametrize("X,Y,Z", [(3, 1, 10), (30, 8, 32), (28, 21, 9)])
+def test_move_right_X_move_left_Y_plus_Z_returns_Z_in_X_minus_Y(X, Y, Z):
+    interpreter = BF_interpreter()
+    interpreter.execute(">" * X)
+    interpreter.execute("<" * Y)
+    interpreter.execute("+" * Z)
+    assert interpreter.memory[X - Y] == Z
