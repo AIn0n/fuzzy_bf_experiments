@@ -33,4 +33,6 @@ class BF_interpreter:
                     self.memory[self.pointer] -= 1
                 case ">":
                     self.pointer += 1
+                case "<":
+                    self.pointer -= 1
         return BF_error()
