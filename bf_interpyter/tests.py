@@ -56,3 +56,10 @@ def test_plus_X_minus_Y_returns_X_minus_Y(X, Y):
     interpreter.execute("+" * X)
     interpreter.execute("-" * Y)
     assert interpreter.memory[0] == X - Y
+
+@pytest.mark.parametrize("X,Y", [(2, 1), (30, 8), (28, 21)])
+def test_move_right_X_plus_Y_returns_Y_in_X(X, Y):
+    interpreter = BF_interpreter()
+    interpreter.execute(">" * X)
+    interpreter.execute("+" * Y)
+    assert interpreter.memory[X] == Y
