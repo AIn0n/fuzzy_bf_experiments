@@ -10,9 +10,11 @@ authors = [
 dependencies = [
     "numpy>=1.24.3",
     "pytest>=7.3.1",
+    "black>=23.3.0",
 ]
 requires-python = ">=3.10"
 license = {text = "GPL-3.0+"}
 
 [tool.pdm.scripts]
 test = "python3 -m pytest tests.py"
+precommit = "python3 -m black ."

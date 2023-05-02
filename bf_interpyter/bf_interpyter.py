@@ -1,6 +1,7 @@
 import numpy as np
 
-np.seterr(over='ignore')  # ignore overflow warnings
+np.seterr(over="ignore")  # ignore overflow warnings
+
 
 def get_bfvm_memory(mem_type: int, size: int) -> np.array:
     size_to_constr = {
@@ -9,4 +10,4 @@ def get_bfvm_memory(mem_type: int, size: int) -> np.array:
         32: np.int32,
         64: np.int64,
     }
-    return np.array([0] * size, dtype= size_to_constr[mem_type])
+    return np.array([0] * size, dtype=size_to_constr[mem_type])
