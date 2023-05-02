@@ -38,6 +38,14 @@ def test_execute_plus_times_X_plus_times_Y_returns_XY(X, Y):
 
     assert interpreter.memory[0] == X + Y
 
+
 def test_giving_wrong_memory_type_defaults_to_8bit():
     memory = get_bfvm_memory(9, 100)
     assert memory.dtype == np.int8
+
+
+@pytest.mark.parametrize("N", [1, 10, 100])
+def test_all_commands_except_default_commands_set_are_ignored(N):
+    interpreter = BF_interpreter()
+    interpreter.execute("+" * N + "hello world!")
+    assert interpreter.memory[0] == N
