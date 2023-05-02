@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from bf_interpyter import get_bfvm_memory
+from bf_interpyter import get_bfvm_memory, BF_interpreter
 
 
 @pytest.mark.parametrize("N", [1, 23, 3849])
@@ -21,3 +21,8 @@ def test_asking_for_N_bit_number_returns_number_which_roll_after_overflow(N):
     value_to_overflow = np.int64(2) ** (N - 1)
     memory[0] += value_to_overflow
     assert memory[0] == -value_to_overflow
+
+def test_execute_plus_sign_returns_cell_value_plus_one():
+    interpreter = BF_interpreter()
+    interpreter.execute("+")
+    assert interpreter.memory[0] == 1
