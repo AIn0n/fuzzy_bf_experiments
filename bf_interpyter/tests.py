@@ -49,3 +49,10 @@ def test_all_commands_except_default_commands_set_are_ignored(N):
     interpreter = BF_interpreter()
     interpreter.execute("+" * N + "hello world!")
     assert interpreter.memory[0] == N
+
+@pytest.mark.parametrize("X,Y", [(2, 1), (30, 8), (28, 21)])
+def test_plus_X_minus_Y_returns_X_minus_Y(X, Y):
+    interpreter = BF_interpreter()
+    interpreter.execute("+" * X)
+    interpreter.execute("-" * Y)
+    assert interpreter.memory[0] == X - Y
