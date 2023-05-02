@@ -12,5 +12,12 @@ class TestInterpreterBehavior(unittest.TestCase):
         memory = get_bfvm_memory(8, N)
         self.assertEqual(len(memory), 0)
 
+    def test_asking_for_N_bit_number_returns_number_which_roll_after_overflow(self):
+        N = 8
+        memory = get_bfvm_memory(N, 1)
+        value_to_overflow = 2 ** (N - 1)
+        memory[0] += value_to_overflow
+        self.assertEqual(memory[0], -value_to_overflow)
+
 if __name__ == "__main__":
     unittest.main()
