@@ -1,4 +1,5 @@
 import numpy as np
+from enum import IntEnum
 
 np.seterr(over="ignore")  # ignore overflow warnings
 
@@ -25,8 +26,10 @@ class BF_interpreter:
         self.pointer = 0
 
     def execute(self, commands: str) -> BF_error:
-        for command in commands:
-            match command:
+        comeback_stack = []
+        n: int = 0
+        while n < len(commands):
+            match commands[n]:
                 case "+":
                     self.memory[self.pointer] += 1
                 case "-":
@@ -35,4 +38,13 @@ class BF_interpreter:
                     self.pointer += 1
                 case "<":
                     self.pointer -= 1
+                case "[":
+                    if self.memory[self.pointer] == 0:
+                        n += commands[n:].find("]")
+                    else:
+                        comeback_stack.append(n)
+                case "]":
+                    n = comeback_stack.pop()
+                    continue
+            n += 1
         return BF_error()
