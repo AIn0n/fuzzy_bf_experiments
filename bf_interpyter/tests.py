@@ -141,8 +141,7 @@ def test_user_input_should_move_pointer_by_N(N):
 def test_input_command_without_defined_handler_returns_error():
     interpeter = BF_interpreter()
     err = interpeter.execute(
-        """
-    ,[
+        """,[
         [->+<] ## move iterator one to the right
         >- ## move pointer and decrement iterator
     ] # end loop
@@ -151,4 +150,4 @@ def test_input_command_without_defined_handler_returns_error():
     assert err.executed == False
     assert "IO handler not defined" in err.msg
     # error happens when program first time meet interaction with IO
-    assert err.where == 1
+    assert err.where == 0

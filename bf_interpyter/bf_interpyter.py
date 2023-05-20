@@ -57,7 +57,11 @@ class BF_interpreter:
             match commands[n]:
                 case ",":
                     if io_handler == None:
-                        return BF_error()
+                        return BF_error(
+                            idx=n,
+                            msg="IO handler not defined, input needed in {n}",
+                            suc=False,
+                        )
                     self.memory[self.pointer] = io_handler.input_pop()
                 case "+":
                     self.memory[self.pointer] += 1
