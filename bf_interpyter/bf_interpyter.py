@@ -55,6 +55,13 @@ class BF_interpreter:
         n: int = 0
         while n < len(commands):
             match commands[n]:
+                case ".":
+                    if io_handler == None:
+                        return BF_error(
+                            idx=n,
+                            msg="IO handler not defined, output needed in {n}",
+                            suc=False,
+                        )
                 case ",":
                     if io_handler == None:
                         return BF_error(
