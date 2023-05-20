@@ -23,12 +23,20 @@ class BF_error:
         self.msg = msg
 
 
+class BF_IO_handler:
+    def __init__(self) -> None:
+        self.input = []
+
+    def input_append(self, el: int) -> None:
+        self.input.append(el)
+
+
 class BF_interpreter:
     def __init__(self, mem_type: int = 64, size: int = 4000):
         self.memory = get_bfvm_memory(mem_type, size)
         self.pointer = 0
 
-    def execute(self, commands: str) -> BF_error:
+    def execute(self, commands: str, io_handler=None) -> BF_error:
         comeback_stack = []
         jump_map = {}
         for idx, val in enumerate(commands):

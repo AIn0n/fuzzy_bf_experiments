@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from bf_interpyter import get_bfvm_memory, BF_interpreter
+from bf_interpyter import *
 
 
 @pytest.mark.parametrize("N", [1, 23, 3849])
@@ -119,3 +119,20 @@ def test_nested_loops_without_closing_returns_bf_error_with_trace(N):
     assert err.where == N
     # error should have information about if code was executed or not
     assert err.executed == False
+
+
+@pytest.mark.parametrize("N", [1, 16, 48, 49])
+def test_user_input_should_move_pointer_by_N(N):
+    interpeter = BF_interpreter()
+    io_handler = BF_IO_handler()
+    io_handler.input_append(N)
+    interpeter.execute(
+        """
+    ,[
+        [->+<] ## move iterator one to the right
+        >- ## move pointer and decrement iterator
+    ] # end loop
+    """,
+        io_handler=io_handler,
+    )
+    assert interpeter.pointer == N
