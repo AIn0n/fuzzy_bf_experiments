@@ -30,13 +30,16 @@ class BF_IO_handler:
     def input_append(self, el: int) -> None:
         self.input.append(el)
 
+    def input_pop(self):
+        return self.input.pop()
+
 
 class BF_interpreter:
     def __init__(self, mem_type: int = 64, size: int = 4000):
         self.memory = get_bfvm_memory(mem_type, size)
         self.pointer = 0
 
-    def execute(self, commands: str, io_handler=None) -> BF_error:
+    def execute(self, commands: str, io_handler: BF_IO_handler = None) -> BF_error:
         comeback_stack = []
         jump_map = {}
         for idx, val in enumerate(commands):
@@ -52,6 +55,10 @@ class BF_interpreter:
         n: int = 0
         while n < len(commands):
             match commands[n]:
+                case ",":
+                    if io_handler == None:
+                        return BF_error()
+                    self.memory[self.pointer] = io_handler.input_pop()
                 case "+":
                     self.memory[self.pointer] += 1
                 case "-":
