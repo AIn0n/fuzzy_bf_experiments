@@ -17,7 +17,10 @@ def get_bfvm_memory(mem_type: int, size: int) -> np.array:
 
 
 class BF_error:
-    pass
+    def __init__(self, idx: int = -1, msg: str = "", suc: bool = True) -> None:
+        self.executed = suc
+        self.where = idx
+        self.msg = msg
 
 
 class BF_interpreter:
@@ -35,7 +38,9 @@ class BF_interpreter:
                 last = comeback_stack.pop()
                 jump_map[last] = idx
                 jump_map[idx] = last
-
+        if len(comeback_stack) > 0:
+            idx = comeback_stack.pop()
+            return BF_error(idx=idx, msg=f"unclosed bracked at {idx}", suc=False)
         n: int = 0
         while n < len(commands):
             match commands[n]:

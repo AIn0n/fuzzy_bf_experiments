@@ -84,16 +84,38 @@ def test_loop_to_copy_to_next_cell(N):
     assert interpreter.memory[interpreter.pointer + 1] == N
     assert interpreter.memory[interpreter.pointer] == 0
 
+
 @pytest.mark.parametrize("N", [1, 5, 49, 348])
 def test_nested_loop_to_move_pointers_returns_state_with_moved_pointer(N):
     interpreter = BF_interpreter()
     # init first cell at the tape with iterator value
     interpreter.execute("+" * N)
-    interpreter.execute("""
+    interpreter.execute(
+        """
     [
         [->+<] ## move iterator one to the right
         >- ## move pointer and decrement iterator
     ] # end loop
-    """)
+    """
+    )
     assert interpreter.pointer == N
     assert not interpreter.memory.any()
+
+
+@pytest.mark.parametrize("N", [1, 16, 48, 89])
+def test_nested_loops_without_closing_returns_bf_error_with_trace(N):
+    interpreter = BF_interpreter()
+    err = interpreter.execute(
+        ("+" * N)
+        + """[
+        [->+<] ## move iterator one to the right
+        >- ## move pointer and decrement iterator
+    #  lack of loop closing
+    """
+    )
+    # message should be somehow meaningful
+    assert "unclosed bracked" in err.msg
+    # error should be shown at index bracked right after iterator init
+    assert err.where == N
+    # error should have information about if code was executed or not
+    assert err.executed == False
