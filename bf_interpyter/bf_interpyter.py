@@ -26,13 +26,19 @@ class BF_error:
 class BF_IO_handler:
     def __init__(self) -> None:
         self.input = []
+        self.output = []
 
     def input_append(self, el: int) -> None:
         self.input.append(el)
 
     def input_pop(self):
         return self.input.pop()
+    
+    def output_append(self, el: int) -> None:
+        pass
 
+    def get_output(self) -> list:
+        return self.output
 
 class BF_interpreter:
     def __init__(self, mem_type: int = 64, size: int = 4000):

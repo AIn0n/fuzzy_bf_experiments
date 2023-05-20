@@ -153,3 +153,19 @@ def test_output_command_without_defined_handler_returns_error():
     assert "IO handler not defined" in err.msg
     # error happens when program first time meet interaction with IO
     assert err.where == bf_code.find(".")
+
+@pytest.mark.parametrize("X,Y", [(10, 20), (13, 17), (49, 9)])
+def test_addition_of_two_given_by_user_numbers_returns_sum_in_output(X, Y):
+    interpeter = BF_interpreter()
+    io_handler = BF_IO_handler()
+    io_handler.input_append(X)
+    io_handler.input_append(Y)
+    bf_code = """
+, # init first cell with some number
+>, # init the second cell with another one
+[->+<] # Copy second cell into the third 
+<[->>+<<] # do the same with the first one
+>>. # Show addition result to the user"""
+
+    interpeter.execute(bf_code, io_handler=io_handler)
+    assert io_handler.get_output()[0] == X + Y
