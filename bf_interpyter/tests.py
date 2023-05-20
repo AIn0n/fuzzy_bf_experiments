@@ -83,3 +83,17 @@ def test_loop_to_copy_to_next_cell(N):
     interpreter.execute("[->+<]")
     assert interpreter.memory[interpreter.pointer + 1] == N
     assert interpreter.memory[interpreter.pointer] == 0
+
+@pytest.mark.parametrize("N", [1, 5, 49, 348])
+def test_nested_loop_to_move_pointers_returns_state_with_moved_pointer(N):
+    interpreter = BF_interpreter()
+    # init first cell at the tape with iterator value
+    interpreter.execute("+" * N)
+    interpreter.execute("""
+    [
+        [->+<] ## move iterator one to the right
+        >- ## move pointer and decrement iterator
+    ] # end loop
+    """)
+    assert interpreter.pointer == N
+    assert not interpreter.memory.any()
