@@ -33,12 +33,13 @@ class BF_IO_handler:
 
     def input_pop(self):
         return self.input.pop()
-    
+
     def output_append(self, el: int) -> None:
-        pass
+        self.output.append(el)
 
     def get_output(self) -> list:
         return self.output
+
 
 class BF_interpreter:
     def __init__(self, mem_type: int = 64, size: int = 4000):
@@ -68,6 +69,7 @@ class BF_interpreter:
                             msg="IO handler not defined, output needed in {n}",
                             suc=False,
                         )
+                    io_handler.output_append(self.memory[self.pointer])
                 case ",":
                     if io_handler == None:
                         return BF_error(

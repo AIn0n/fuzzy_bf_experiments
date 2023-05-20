@@ -154,6 +154,7 @@ def test_output_command_without_defined_handler_returns_error():
     # error happens when program first time meet interaction with IO
     assert err.where == bf_code.find(".")
 
+
 @pytest.mark.parametrize("X,Y", [(10, 20), (13, 17), (49, 9)])
 def test_addition_of_two_given_by_user_numbers_returns_sum_in_output(X, Y):
     interpeter = BF_interpreter()
