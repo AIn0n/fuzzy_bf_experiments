@@ -1,7 +1,7 @@
 ## move by pointer number to some place and go back
 #
 # useful to build some sort of memory allocator
-# first address is stop number, 0 minus 1 value needed to stop us during comeback.
+# first address is stop number 0 minus 1 value needed to stop us during comeback
 # second address (plus 2) is used as iterator
 #
 
