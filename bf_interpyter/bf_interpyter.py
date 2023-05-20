@@ -58,10 +58,8 @@ def get_jump_table(commands: str) -> tuple[dict, BF_error]:
     return jump_map, BF_error()
 
 
-def get_io_err_msg(idx, which):
-    return BF_error(
-        idx=idx, msg=f"IO handler not defined, {which} needed in {idx}", suc=False
-    )
+def get_io_err_msg(idx):
+    return BF_error(idx=idx, msg=f"IO handler not defined, needed in {idx}", suc=False)
 
 
 class BF_interpreter:
@@ -73,16 +71,14 @@ class BF_interpreter:
         jump_map, err = get_jump_table(commands)
         if not err.executed:
             return err
+        if ("." in commands or "," in commands) and not io_handler:
+            return get_io_err_msg(max(commands.find("."), commands.find(",")))
         n: int = 0
         while n < len(commands):
             match commands[n]:
                 case ".":
-                    if io_handler == None:
-                        return get_io_err_msg(n, "output")
                     io_handler.output_append(self.memory[self.pointer])
                 case ",":
-                    if io_handler == None:
-                        return get_io_err_msg(n, "input")
                     self.memory[self.pointer] = io_handler.input_pop()
                 case "+":
                     self.memory[self.pointer] += 1
