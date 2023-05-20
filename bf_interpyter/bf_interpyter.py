@@ -27,6 +27,15 @@ class BF_interpreter:
 
     def execute(self, commands: str) -> BF_error:
         comeback_stack = []
+        jump_map = {}
+        for idx, val in enumerate(commands):
+            if val == "[":
+                comeback_stack.append(idx)
+            if val == "]":
+                last = comeback_stack.pop()
+                jump_map[last] = idx
+                jump_map[idx] = last
+
         n: int = 0
         while n < len(commands):
             match commands[n]:
@@ -40,11 +49,9 @@ class BF_interpreter:
                     self.pointer -= 1
                 case "[":
                     if self.memory[self.pointer] == 0:
-                        n += commands[n:].find("]")
-                    else:
-                        comeback_stack.append(n)
+                        n = jump_map[n]
                 case "]":
-                    n = comeback_stack.pop()
+                    n = jump_map[n]
                     continue
             n += 1
         return BF_error()
